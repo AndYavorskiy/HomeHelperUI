@@ -1,15 +1,20 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { Component, AfterViewInit, ElementRef, ViewChild } from "@angular/core";
 import { Page } from "tns-core-modules/ui/page";
 import { RouterExtensions } from "nativescript-angular/router";
 import { alert, prompt } from "tns-core-modules/ui/dialogs";
-import { AuthorizationService } from "./services";
+import { AuthorizationService, UserService, AppContextService } from "../shared/services";
+
+import * as appSettings from "tns-core-modules/application-settings";
+import { AppSettingKeys } from "../shared/app-setting-keys.constant";
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import * as app from "tns-core-modules/application";
 
 @Component({
     selector: "login",
     templateUrl: "./login.component.html",
     styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements AfterViewInit {
 
     processing = false;
     isLoggingIn = true;
@@ -23,14 +28,15 @@ export class LoginComponent implements OnInit {
 
     constructor(private page: Page,
         private routerExtensions: RouterExtensions,
+        private userService: UserService,
+        private appContextService: AppContextService,
         private authorizationService: AuthorizationService) {
         this.page.actionBarHidden = true;
         this.emailText = "root@gmail.com";
         this.passwordText = "12345678";
     }
 
-    ngOnInit() {
-        // Init your component properties here.
+    ngAfterViewInit() {
     }
 
     toggleForm() {
@@ -54,9 +60,14 @@ export class LoginComponent implements OnInit {
     login() {
         this.authorizationService.login({ login: this.emailText, password: this.passwordText })
             .subscribe(data => {
+                this.authorizationService.saveAuthToken(data);
+
+                this.userService.getInfo()
+                    .subscribe(userData => this.appContextService.updateUserInfo(userData));
+
                 this.processing = false;
-                this.routerExtensions.navigate(["../main"], { clearHistory: true });
-                console.log(data);
+                this.routerExtensions.navigate(["/home"], { clearHistory: true });
+                console.log(data.token);
             }, error => {
                 this.processing = false;
                 this.alert("Unfortunately we could not find your account.");

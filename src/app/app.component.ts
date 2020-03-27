@@ -1,9 +1,14 @@
+import { filter } from "rxjs/operators";
+import { RouterExtensions } from "nativescript-angular/router";
+import * as app from "tns-core-modules/application";
+import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer";
+import Theme from "nativescript-theme-core";
+
 import { Component, OnInit } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
-import { RouterExtensions } from "nativescript-angular/router";
-import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer";
-import { filter } from "rxjs/operators";
-import * as app from "tns-core-modules/application";
+
+import { AppContextService } from "./shared/services";
+import { UserModel } from "./shared/models";
 
 @Component({
     selector: "ns-app",
@@ -13,35 +18,46 @@ export class AppComponent implements OnInit {
     private _activatedUrl: string;
     private _sideDrawerTransition: DrawerTransitionBase;
 
-    constructor(private router: Router, private routerExtensions: RouterExtensions) {
-        // Use the component constructor to inject services.
+    user: UserModel;
+
+    constructor(private router: Router,
+        private routerExtensions: RouterExtensions,
+        private appContextService: AppContextService) {
     }
 
-    ngOnInit(): void {
-        // this._activatedUrl = "/home";
-        // this._sideDrawerTransition = new SlideInOnTopTransition();
+    ngOnInit() {
+        this.appContextService.UserModel
+            .subscribe(data => this.user = data);
 
-        // this.router.events
-        // .pipe(filter((event: any) => event instanceof NavigationEnd))
-        // .subscribe((event: NavigationEnd) => this._activatedUrl = event.urlAfterRedirects);
+        Theme.setMode(Theme.Dark);
+
+        this._sideDrawerTransition = new SlideInOnTopTransition();
+
+        this.router.events
+            .pipe(filter((event: any) => event instanceof NavigationEnd))
+            .subscribe((event: NavigationEnd) => this._activatedUrl = event.urlAfterRedirects);
     }
 
-    // get sideDrawerTransition(): DrawerTransitionBase {
-    //     return this._sideDrawerTransition;
-    // }
+    get sideDrawerTransition(): DrawerTransitionBase {
+        return this._sideDrawerTransition;
+    }
 
-    // isComponentSelected(url: string): boolean {
-    //     return this._activatedUrl === url;
-    // }
+    toggleThemeMode() {
+        Theme.toggleMode();
+    }
 
-    // onNavItemTap(navItemRoute: string): void {
-    //     this.routerExtensions.navigate([navItemRoute], {
-    //         transition: {
-    //             name: "fade"
-    //         }
-    //     });
+    isComponentSelected(url: string): boolean {
+        return this._activatedUrl === url;
+    }
 
-    //     const sideDrawer = <RadSideDrawer>app.getRootView();
-    //     sideDrawer.closeDrawer();
-    // }
+    onNavItemTap(navItemRoute: string): void {
+        this.routerExtensions.navigate([navItemRoute], {
+            transition: {
+                name: "fade"
+            }
+        });
+
+        const sideDrawer = <RadSideDrawer>app.getRootView();
+        sideDrawer.closeDrawer();
+    }
 }

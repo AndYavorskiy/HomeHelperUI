@@ -6,7 +6,10 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms"
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { AppLayoutComponent } from "./app-layout/app-layout.component";
+import { AuthorizationService, UserService, AppContextService } from "./shared/services";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { JwtInterceptor } from "./shared/interceptors";
+
 @NgModule({
     bootstrap: [
         AppComponent
@@ -20,7 +23,16 @@ import { AppLayoutComponent } from "./app-layout/app-layout.component";
     ],
     declarations: [
         AppComponent,
-        AppLayoutComponent
+    ],
+    providers: [
+        AuthorizationService,
+        UserService,
+        AppContextService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: JwtInterceptor,
+            multi: true
+        }
     ],
     schemas: [
         NO_ERRORS_SCHEMA

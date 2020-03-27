@@ -4,7 +4,6 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms"
 
 import { AuthorizationRoutingModule } from "./authorization-routing.module";
 import { LoginComponent } from "./login.component";
-import { AuthorizationService } from "./services";
 
 @NgModule({
     imports: [
@@ -16,7 +15,6 @@ import { AuthorizationService } from "./services";
         LoginComponent
     ],
     providers: [
-        AuthorizationService
     ],
     schemas: [
         NO_ERRORS_SCHEMA
