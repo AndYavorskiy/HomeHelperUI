@@ -7,7 +7,7 @@ import Theme from "nativescript-theme-core";
 import { Component, OnInit } from "@angular/core";
 import { NavigationEnd, Router } from "@angular/router";
 
-import { AppContextService } from "./shared/services";
+import { AppContextService, AuthorizationService } from "./shared/services";
 import { UserModel } from "./shared/models";
 
 @Component({
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
 
     constructor(private router: Router,
         private routerExtensions: RouterExtensions,
+        private authorizationService: AuthorizationService,
         private appContextService: AppContextService) {
     }
 
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit {
         this.appContextService.UserModel
             .subscribe(data => this.user = data);
 
-        Theme.setMode(Theme.Dark);
+        // Theme.setMode(Theme.Dark);
 
         this._sideDrawerTransition = new SlideInOnTopTransition();
 
@@ -59,5 +60,10 @@ export class AppComponent implements OnInit {
 
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.closeDrawer();
+    }
+
+    logout() {
+        this.authorizationService.logout();
+        this.onNavItemTap('../auth')
     }
 }

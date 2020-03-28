@@ -9,6 +9,8 @@ import { AppComponent } from "./app.component";
 import { AuthorizationService, UserService, AppContextService } from "./shared/services";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { JwtInterceptor } from "./shared/interceptors";
+import { FoodService } from "./search/services";
+import { AuthGuard } from "./shared/guards";
 
 @NgModule({
     bootstrap: [
@@ -27,12 +29,14 @@ import { JwtInterceptor } from "./shared/interceptors";
     providers: [
         AuthorizationService,
         UserService,
+        FoodService,
         AppContextService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: JwtInterceptor,
             multi: true
-        }
+        },
+        AuthGuard
     ],
     schemas: [
         NO_ERRORS_SCHEMA

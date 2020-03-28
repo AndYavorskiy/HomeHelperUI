@@ -23,10 +23,17 @@ export class AuthorizationService {
     }
 
     getAuthToken() {
-        return appSettings.hasKey(AppSettingKeys.AuthCredentials) ? JSON.parse(appSettings.getString(AppSettingKeys.AuthCredentials)) as AuthTokenModel : null;
+        return appSettings.hasKey(AppSettingKeys.AuthCredentials)
+            ? JSON.parse(appSettings.getString(AppSettingKeys.AuthCredentials)) as AuthTokenModel
+            : null;
     }
 
     saveAuthToken(authTokenModel: AuthTokenModel) {
         appSettings.setString(AppSettingKeys.AuthCredentials, JSON.stringify(authTokenModel));
+    }
+
+    logout() {
+        appSettings.remove(AppSettingKeys.AuthCredentials);
+        appSettings.remove(AppSettingKeys.UserInfo);
     }
 }

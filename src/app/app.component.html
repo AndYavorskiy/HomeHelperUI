@@ -20,14 +20,14 @@
 
                 <GridLayout columns="auto, *" class="nt-drawer__list-item"
                     [class.-selected]="isComponentSelected('/browse')" (tap)="onNavItemTap('/browse')">
-                    <Label col="0" text="&#xf1ea;" class="nt-icon far"></Label>
-                    <Label col="1" text="Browse" class="p-r-10"></Label>
+                    <Label col="0" text="&#xf481;" class="nt-icon fas"></Label>
+                    <Label col="1" text="Medicaments" class="p-r-10"></Label>
                 </GridLayout>
 
                 <GridLayout columns="auto, *" class="nt-drawer__list-item"
                     [class.-selected]="isComponentSelected('/search')" (tap)="onNavItemTap('/search')">
-                    <Label col="0" text="&#xf002;" class="nt-icon fas"></Label>
-                    <Label col="1" text="Search" class="p-r-10"></Label>
+                    <Label col="0" text="&#xf5d1;" class="nt-icon fas"></Label>
+                    <Label col="1" text="Food" class="p-r-10"></Label>
                 </GridLayout>
 
                 <GridLayout columns="auto, *" class="nt-drawer__list-item"
@@ -44,8 +44,7 @@
                     <Label col="1" text="Settings" class="p-r-10"></Label>
                 </GridLayout>
 
-                <GridLayout columns="auto, *" class="nt-drawer__list-item"
-                    [class.-selected]="isComponentSelected('../auth')" (tap)="onNavItemTap('../auth')">
+                <GridLayout columns="auto, *" class="nt-drawer__list-item" (tap)="logout()">
                     <Label col="0" text="&#xf2f5;" class="nt-icon fas"></Label>
                     <Label col="1" text="Logout" class="p-r-10"></Label>
                 </GridLayout>
