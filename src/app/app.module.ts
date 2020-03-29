@@ -1,4 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
@@ -7,9 +9,8 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms"
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AuthorizationService, UserService, AppContextService } from "./shared/services";
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { JwtInterceptor } from "./shared/interceptors";
-import { FoodService } from "./search/services";
+import { FoodService } from "./food/services";
 import { AuthGuard } from "./shared/guards";
 
 @NgModule({

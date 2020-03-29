@@ -1,21 +1,23 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
-import { SearchRoutingModule } from "./search-routing.module";
-import { SearchComponent } from "./search.component";
+import { FoodRoutingModule } from "./food-routing.module";
+import { FoodComponent } from "./components/food.component";
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
-        SearchRoutingModule,
-        NativeScriptHttpClientModule
+        FoodRoutingModule,
+        NativeScriptHttpClientModule,
+        NativeScriptUIListViewModule
     ],
     declarations: [
-        SearchComponent
+        FoodComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class SearchModule { }
+export class FoodModule { }
