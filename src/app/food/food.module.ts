@@ -5,6 +5,7 @@ import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 
 import { FoodRoutingModule } from "./food-routing.module";
 import { FoodComponent } from "./components/food.component";
+import { FoodDetailsComponent, FoodCreateComponent } from "./components";
 
 @NgModule({
     imports: [
@@ -14,7 +15,9 @@ import { FoodComponent } from "./components/food.component";
         NativeScriptUIListViewModule
     ],
     declarations: [
-        FoodComponent
+        FoodComponent,
+        FoodDetailsComponent,
+        FoodCreateComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

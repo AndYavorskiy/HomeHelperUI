@@ -1,0 +1,27 @@
+<ActionBar>
+    <NavigationButton ios:visibility="collapsed" icon="font://&#xf104;" class="fas" (tap)="goBack()"></NavigationButton>
+
+    <Label text="Details"></Label>
+
+    <ActionItem text="Go Back" android:visibility="collapsed" (tap)="goBack()" ios.position="left">
+    </ActionItem>
+</ActionBar>
+
+<StackLayout *ngIf="data" class="details">
+    <Label class="name" [text]="data.name"></Label>
+
+    <StackLayout rows="*, auto" class="info">
+        <Label class="sub-title" text="AMOUNT"></Label>
+        <Label class="description" [text]="data.amount"></Label>
+    </StackLayout>
+
+    <StackLayout rows="*, auto" class="info" *ngIf="data.expirationDate">
+        <Label class="sub-title" text="EXPIRATION"></Label>
+        <Label class="description" [text]="data.expirationDate | date"></Label>
+    </StackLayout>
+
+    <StackLayout rows="*, auto" class="info" *ngIf="data.description">
+        <Label class="sub-title" text="DESCRIPTION"></Label>
+        <Label class="description" [text]="data.description"></Label>
+    </StackLayout>
+</StackLayout>

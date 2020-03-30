@@ -1,0 +1,22 @@
+.details {
+    margin: 20px 40px;
+
+    .name {
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .info {
+        margin: 20px 0;
+
+        .sub-title {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .description {
+            font-size: 14px;
+        }
+    }
+}

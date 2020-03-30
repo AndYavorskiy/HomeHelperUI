@@ -7,6 +7,8 @@ import { FoodService } from "../services";
 import { FoodModel } from "../models";
 import { ListViewEventData } from "nativescript-ui-listview";
 import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
+import { RouterExtensions } from "nativescript-angular/router";
+import { FoodModule } from "../food.module";
 
 @Component({
     selector: "food",
@@ -14,11 +16,11 @@ import { ObservableArray } from "tns-core-modules/data/observable-array/observab
     styleUrls: ["./food.component.scss"]
 })
 export class FoodComponent implements OnInit {
-    
+
     dataItems: ObservableArray<FoodModel>;
     isLoading = true;
 
-    constructor(private foodService: FoodService) {
+    constructor(private foodService: FoodService, private routerExtensions: RouterExtensions) {
     }
 
     ngOnInit(): void {
@@ -34,8 +36,32 @@ export class FoodComponent implements OnInit {
         const sideDrawer = <RadSideDrawer>app.getRootView();
         sideDrawer.showDrawer();
     }
-    public onPullToRefreshInitiated(args: ListViewEventData) {
+
+    onPullToRefreshInitiated(args: ListViewEventData) {
         const listView = args.object;
         listView.notifyPullToRefreshFinished();
+    }
+
+    navigateToAdd(): void {
+
+        this.routerExtensions.navigate(["/add"], {
+            animated: true,
+            transition: {
+                name: "slideLeft",
+                duration: 200,
+                curve: "easeIn"
+            }
+        });
+    }
+
+    navigateToDetails(item: FoodModel) {
+        this.routerExtensions.navigate(['food',item.id], {
+            animated: true,
+            transition: {
+                name: "slideLeft",
+                duration: 150,
+                curve: "easeIn"
+            }
+        });
     }
 }

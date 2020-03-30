@@ -1,17 +1,11 @@
 <ActionBar>
-    <!-- 
-    Use the NavigationButton as a side-drawer button in Android
-    because ActionItems are shown on the right side of the ActionBar
-    -->
     <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
-    <!-- 
-    Use the ActionItem for IOS with position set to left. Using the
-    NavigationButton as a side-drawer button in iOS is not possible,
-    because its function is to always navigate back in the application.
-    -->
     <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
     </ActionItem>
+
     <Label text="Food"></Label>
+
+    <ActionItem icon="font://&#xf055;" class="fas" ios.position="right" [nsRouterLink]="['create']"></ActionItem>
 </ActionBar>
 
 <StackLayout *ngIf="isLoading" verticalAlignment="center" horizontalAlignment="center">
@@ -21,7 +15,7 @@
 <GridLayout class="page__content" *ngIf="!isLoading">
     <RadListView [items]="dataItems" pullToRefresh="true" (pullToRefreshInitiated)="onPullToRefreshInitiated($event)">
         <ng-template tkListItemTemplate let-item="item">
-            <FlexboxLayout flexDirection="row">
+            <FlexboxLayout flexDirection="row" (tap)="navigateToDetails(item)">
                 <GridLayout class="list-item" rows="auto, auto" columns="70, *, 10" margin="4 15">
                     <StackLayout class="item-icon-background" row="0" rowSpan="2" col="0" height="50" width="50"
                         verticalAlignment="center" horizontalAlignment="center">
@@ -32,7 +26,7 @@
 
                     <GridLayout columns="2*, auto" row="1" col="1">
                         <Label col="0" [text]="item.amount"></Label>
-                        
+
                         <Label class="exp-date-label" col="1" [text]="item.expirationDate | date"></Label>
                     </GridLayout>
                 </GridLayout>
