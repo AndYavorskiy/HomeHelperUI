@@ -20,6 +20,8 @@
 
 // Common page class
 .page__content {
+    background-color: #f5f5f5;
+
     &-icon,
     &-placeholder {
         color: const(grey);

@@ -14,7 +14,9 @@ import { ObservableArray } from "tns-core-modules/data/observable-array/observab
     styleUrls: ["./food.component.scss"]
 })
 export class FoodComponent implements OnInit {
+    
     dataItems: ObservableArray<FoodModel>;
+    isLoading = true;
 
     constructor(private foodService: FoodService) {
     }
@@ -24,6 +26,7 @@ export class FoodComponent implements OnInit {
         this.foodService.getAll()
             .subscribe(data => {
                 this.dataItems.push(data);
+                this.isLoading = false;
             });
     }
 

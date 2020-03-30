@@ -1,11 +1,28 @@
-.card {
-    background-color: #fff;
-    color: #4d4d4d;
-    margin: 15 15 0;
+.item-icon-background {
+    background: linear-gradient(to bottom right, #13aa52, #7be495);
+    border-radius: 20px;
+    padding: 0;
+
+    .item-icon {
+        font-size: 27px;
+        color: white;
+        width: 100%;
+        text-align: center;
+    }
 }
-.card-layout {
-    padding: 20;
+
+.name-label {
+    font-weight: bold;
+    font-size: 14px;
 }
-.card-layout .h1 {
-    margin-bottom: 15;
+
+.exp-date-label {
+    color: gray;
+}
+
+.list-item {
+    border: 1px solid #13aa52;
+    background-color: white;
+    padding: 10px 0;
+    border-radius: 20px;
 }
