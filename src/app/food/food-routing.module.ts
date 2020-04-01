@@ -7,6 +7,7 @@ import { FoodDetailsComponent, FoodCreateComponent, FoodComponent } from "./comp
 const routes: Routes = [
     { path: "", component: FoodComponent },
     { path: "create", component: FoodCreateComponent },
+    { path: "update/:id", component: FoodCreateComponent },
     { path: ":id", component: FoodDetailsComponent },
 ];
 

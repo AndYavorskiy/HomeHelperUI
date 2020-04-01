@@ -3,6 +3,8 @@ export class FoodModel {
     name: string;
     amount: string;
     description: string;
-    expirationDate?: Date;
+    expirationDate?: Date | string;
     userId: string;
+
+    isExpanded: boolean;
 }

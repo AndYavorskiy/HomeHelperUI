@@ -14,25 +14,34 @@
 
 <GridLayout class="page__content" *ngIf="!isLoading" tkExampleTitle tkToggleNavButton>
     <RadListView #myListView [items]="dataItems" row="1" selectionBehavior="None" margin="5 10" swipeActions="true"
-        (itemSwipeProgressEnded)="onSwipeCellFinished($event)" (itemSwipeProgressStarted)="onSwipeCellStarted($event)"
-        (itemSwipeProgressChanged)="onCellSwiping($event)" pullToRefresh="true"
-        (pullToRefreshInitiated)="onPullToRefreshInitiated($event)">
+        (itemSwipeProgressStarted)="onSwipeCellStarted($event)" (itemSwipeProgressChanged)="onCellSwiping($event)"
+        pullToRefresh="true" (pullToRefreshInitiated)="onPullToRefreshInitiated($event)">
 
         <ng-template tkListItemTemplate let-item="item">
-            <FlexboxLayout flexDirection="row" (tap)="navigateToDetails(item)" (longPress)="onListItemLongPress(item)">
-                <GridLayout class="list-item" rows="auto, auto" columns="70, *, 10" margin="5 0">
+            <FlexboxLayout flexDirection="row" (longPress)="navigateToDetails(item)"
+                (tap)="item.isExpanded = !item.isExpanded">
+                <GridLayout class="list-item" rows="auto, auto, auto" columns="70, *, 10" margin="5 0">
                     <StackLayout class="item-icon-background" row="0" rowSpan="2" col="0" height="50" width="50"
                         verticalAlignment="center" horizontalAlignment="center">
                         <Label class="item-icon fas" text="&#xf5d1;"></Label>
                     </StackLayout>
 
-                    <Label class="name-label" row="0" col="1" [text]="item.name"></Label>
+                    <GridLayout columns="*, auto" row="0" col="1">
+                        <Label class="name-label" [text]="item.name"></Label>
+
+                        <Label class="item-icon fas expand-chevron" col="1" text="&#xf078;" *ngIf="item.description && !item.isExpanded"></Label>
+                        <Label class="item-icon fas expand-chevron" col="1" text="&#xf077;" *ngIf="item.description && item.isExpanded"></Label>
+                    </GridLayout>
 
                     <GridLayout columns="2*, auto" row="1" col="1">
                         <Label col="0" [text]="item.amount"></Label>
 
                         <Label class="exp-date-label" col="1" [text]="item.expirationDate | date"></Label>
                     </GridLayout>
+
+                    <StackLayout row="2" colSpan="3" *ngIf="item.description && item.isExpanded" #desc>
+                        <Label [text]="item.description" textWrap="true"></Label>
+                    </StackLayout>
                 </GridLayout>
             </FlexboxLayout>
         </ng-template>

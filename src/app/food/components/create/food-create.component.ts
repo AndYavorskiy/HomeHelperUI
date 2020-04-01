@@ -1,4 +1,5 @@
 import * as app from "tns-core-modules/application";
+import * as moment from 'moment';
 
 import { Component, OnInit } from "@angular/core";
 
@@ -34,6 +35,31 @@ export class FoodCreateComponent implements OnInit {
             expiration: [new Date()],
             description: ['']
         });
+
+        this.activatedRoute.paramMap.subscribe(params => {
+            const id = params.get("id");
+
+            if (id) {
+                this.isLoading = true;
+
+                this.foodService.get(id)
+                    .subscribe(data => {
+                        this.data = data;
+
+                        this.form.controls.name.setValue(data.name);
+                        this.form.controls.amount.setValue(data.amount);
+
+                        if (data.expirationDate) {
+                            this.form.controls.hasExpiration.setValue(true);
+                            this.form.controls.expiration.setValue(data.expirationDate);
+                        }
+
+                        this.form.controls.description.setValue(data.description);
+
+                        this.isLoading = false;
+                    });
+            }
+        })
     }
 
     goBack() {
@@ -50,7 +76,9 @@ export class FoodCreateComponent implements OnInit {
 
             task.name = formData.name;
             task.amount = formData.amount;
-            task.expirationDate = formData.expirationDate;
+            task.expirationDate = !!formData.hasExpiration
+                ? moment(formData.expirationDate).format('YYYY-MM-DD[T]HH:mm:ss.SSSZ')
+                : null;
             task.description = formData.description;
 
             if (!this.data) {
