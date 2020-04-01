@@ -1,10 +1,11 @@
 <ActionBar>
-    <NavigationButton ios:visibility="collapsed" icon="font://&#xf104;" class="fas" (tap)="goBack()"></NavigationButton>
+    <NavigationButton ios:visibility="collapsed" icon="res://back" class="fas" (tap)="goBack()"></NavigationButton>
+
+    <ActionItem text="Go Back" android:visibility="collapsed" (tap)="goBack()" ios.position="left"></ActionItem>
 
     <Label text="Add new"></Label>
 
-    <ActionItem text="Go Back" android:visibility="collapsed" (tap)="goBack()" ios.position="left">
-    </ActionItem>
+    <ActionItem icon="res://tick_bold" ios.position="right" [isEnabled]="form && form.valid" (tap)="submit()" ></ActionItem>
 </ActionBar>
 
 <ScrollView>
@@ -21,7 +22,8 @@
 
             <GridLayout heigth="20" columns="auto, *">
                 <Label col="0" class="input-label" text="Has expiration" verticalAlignment="center"></Label>
-                <Switch col="1" formControlName="hasExpiration" color="#13aa52" backgroundColor="green" offBackgroundColor="gray">
+                <Switch col="1" formControlName="hasExpiration" color="#13aa52" backgroundColor="green"
+                    offBackgroundColor="gray">
                 </Switch>
             </GridLayout>
 
@@ -30,7 +32,5 @@
                 <DatePicker formControlName="expiration" verticalAlignment="center"></DatePicker>
             </StackLayout>
         </form>
-
-        <Button text="Save" [isEnabled]="form.valid" (tap)="submit()" class="btn btn-primary m-t-20"></Button>
     </StackLayout>
 </ScrollView>
