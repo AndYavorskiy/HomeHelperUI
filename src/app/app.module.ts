@@ -13,7 +13,7 @@ import { AppComponent } from "./app.component";
 import { JwtInterceptor } from "./shared/interceptors";
 import { FoodService } from "./food/services";
 import { AuthGuard } from "./shared/guards";
-import { AuthorizationService, UserService, AppContextService } from "./shared/services";
+import { AuthorizationService, UserService, AppContextService, BasketService } from "./shared/services";
 
 @NgModule({
     bootstrap: [
@@ -34,6 +34,7 @@ import { AuthorizationService, UserService, AppContextService } from "./shared/s
         AuthorizationService,
         UserService,
         FoodService,
+        BasketService,
         AppContextService,
         {
             provide: HTTP_INTERCEPTORS,

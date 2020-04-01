@@ -12,6 +12,8 @@ import { layout } from "tns-core-modules/utils/utils";
 
 import { FoodService } from "../../services";
 import { FoodModel } from "../../models";
+import { BasketService } from "~/app/shared/services";
+import { BasketItemType, BasketItemModel } from "~/app/shared/models";
 
 @Component({
     selector: "food",
@@ -27,6 +29,7 @@ export class FoodComponent implements OnInit {
 
     constructor(private foodService: FoodService,
         private page: Page,
+        private basketService: BasketService,
         private routerExtensions: RouterExtensions) {
     }
 
@@ -142,6 +145,7 @@ export class FoodComponent implements OnInit {
 
         switch (itemView.id) {
             case "btnBuy":
+                this.buyItem(rowIndex);
                 break;
             case "btnDelete":
                 this.deleteItem(rowIndex);
@@ -176,5 +180,15 @@ export class FoodComponent implements OnInit {
                 curve: "easeIn"
             }
         });
+    }
+
+    buyItem(index: number) {
+        const item = this.dataItems.getItem(index);
+
+        this.basketService.create({ name: item.name, itemType: BasketItemType.Food } as BasketItemModel)
+            .subscribe(()=>{
+                console.log("basketService.create");
+                
+            });
     }
 }
