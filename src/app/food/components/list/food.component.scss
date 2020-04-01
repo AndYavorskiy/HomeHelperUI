@@ -26,3 +26,41 @@
     padding: 10px 0;
     border-radius: 20px;
 }
+
+
+.listItemStackLayout {
+    background-color: white;
+    padding-left: 5;
+}
+
+.labelName {
+    font-size: 20;
+    margin-bottom: 8;
+}
+
+.labelTitle {
+    font-size: 14;
+    font-weight: bold;
+}
+
+.labelText {
+    font-size: 12;
+}
+
+.action-item {
+    font-size: 20;
+    color: white;
+    opacity: 0.8;
+
+    &.delete {
+        background-color: #ff4343;
+    }
+
+    &.edit {
+        background-color: #ffbb00;
+    }
+
+    &.buy {
+        background-color: #2587ce;
+    }
+}

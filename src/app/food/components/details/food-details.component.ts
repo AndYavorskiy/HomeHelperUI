@@ -8,7 +8,7 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
-    selector: "food",
+    selector: "food-details",
     templateUrl: "./food-details.component.html",
     styleUrls: ["./food-details.component.scss"]
 })

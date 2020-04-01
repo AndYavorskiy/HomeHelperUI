@@ -10,7 +10,7 @@
 <StackLayout *ngIf="data" class="details">
     <Label class="name" [text]="data.name"></Label>
 
-    <StackLayout rows="*, auto" class="info">
+    <StackLayout rows="*, auto" class="info" *ngIf="data.amount">
         <Label class="sub-title" text="AMOUNT"></Label>
         <Label class="description" [text]="data.amount"></Label>
     </StackLayout>

@@ -7,7 +7,30 @@
     </ActionItem>
 </ActionBar>
 
-<StackLayout>
-    <Label class="name" [text]="'Create'"></Label>
+<ScrollView>
+    <StackLayout class="form-content">
+        <form [formGroup]="form">
+            <Label class="input-label" text="Name"></Label>
+            <TextField formControlName="name" returnKeyType="next"></TextField>
 
-</StackLayout>
+            <Label class="input-label" text="Amount"></Label>
+            <TextField formControlName="amount" returnKeyType="next"></TextField>
+
+            <Label class="input-label" text="Description"></Label>
+            <TextView formControlName="description" [autocorrect]="true"></TextView>
+
+            <GridLayout heigth="20" columns="auto, *">
+                <Label col="0" class="input-label" text="Has expiration" verticalAlignment="center"></Label>
+                <Switch col="1" formControlName="hasExpiration" color="#13aa52" backgroundColor="green" offBackgroundColor="gray">
+                </Switch>
+            </GridLayout>
+
+            <StackLayout *ngIf="form.controls.hasExpiration.value">
+                <Label class="input-label" text="Expiration"></Label>
+                <DatePicker formControlName="expiration" verticalAlignment="center"></DatePicker>
+            </StackLayout>
+        </form>
+
+        <Button text="Save" [isEnabled]="form.valid" (tap)="submit()" class="btn btn-primary m-t-20"></Button>
+    </StackLayout>
+</ScrollView>
