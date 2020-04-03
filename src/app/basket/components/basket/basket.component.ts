@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 
 import * as app from "tns-core-modules/application";
 import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
@@ -13,12 +13,19 @@ import { layout } from "tns-core-modules/utils/utils";
 import { BasketService } from "~/app/shared/services";
 import { BasketItemType, BasketItemModel } from "~/app/shared/models";
 
+
+import { Frame } from "tns-core-modules/ui/frame/frame";
+import { screen, isIOS } from "tns-core-modules/platform";
+
+import { ModalDialogService } from "nativescript-angular/directives/dialogs";
+import { CompletePurchase } from "../complete-purchase/complete-purchase.component";
+
 @Component({
-    selector: "home",
-    templateUrl: "./home.component.html",
-    styleUrls: ["./home.component.scss"]
+    selector: "basket",
+    templateUrl: "./basket.component.html",
+    styleUrls: ["./basket.component.scss"]
 })
-export class HomeComponent implements OnInit {
+export class BasketComponent implements OnInit {
 
     dataItems = new ObservableArray<BasketItemModel>();
     isLoading = true;
@@ -31,7 +38,9 @@ export class HomeComponent implements OnInit {
     myListViewComponent: RadListViewComponent;
 
     constructor(private page: Page,
+        private modalDialogService: ModalDialogService,
         private basketService: BasketService,
+        private viewRef: ViewContainerRef,
         private routerExtensions: RouterExtensions) {
     }
 
@@ -72,18 +81,7 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    navigateToDetails(item: BasketItemModel) {
-        this.routerExtensions.navigate(['food', item.id], {
-            animated: true,
-            transition: {
-                name: "slideLeft",
-                duration: 150,
-                curve: "easeIn"
-            }
-        });
-    }
-
-    public onCellSwiping(args: ListViewEventData) {
+    onCellSwiping(args: ListViewEventData) {
         const swipeLimits = args.data.swipeLimits;
         const swipeView = args['swipeView'];
         this.mainView = args['mainView'];
@@ -180,7 +178,17 @@ export class HomeComponent implements OnInit {
     completeItem(index: number) {
         const item = this.dataItems.getItem(index);
 
-        // this.basketService.completePurchase({})
-        //     .subscribe();
+        this.modalDialogService.showModal(CompletePurchase,
+            {
+                viewContainerRef: this.viewRef,
+                context: item,
+                animated: true
+            }).then(() => { });
+    }
+
+    actionFrameLoaded(args: EventData) {
+        const frame = args.object as Frame;
+
+        frame.translateY = screen.mainScreen.heightDIPs;
     }
 }

@@ -1,0 +1,39 @@
+.form-content {
+    margin: 30px 10px 0;
+
+    .input-label {
+        margin-left: 40px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    TextField,
+    TextView {
+        font-size: 16px;
+    }
+}
+
+.item-type {
+    border-width: 5px;
+    border-style: solid;
+    border-color: gray;
+    color: gray;
+    border-radius: 25px;
+
+    &.selected {
+        border-width: 5px;
+        border-color: #13aa52;
+        color: #13aa52;
+        font-weight: bold;
+    }
+
+    .icon {
+        font-size: 35px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .signature {
+        font-size: 15px;
+    }
+}

@@ -66,7 +66,7 @@ export class LoginComponent implements AfterViewInit {
                     .subscribe(userData => this.appContextService.updateUserInfo(userData));
 
                 this.processing = false;
-                this.routerExtensions.navigate(["/home"], { clearHistory: true });
+                this.routerExtensions.navigate(["/basket"], { clearHistory: true });
                 console.log(data.token);
             }, error => {
                 this.processing = false;

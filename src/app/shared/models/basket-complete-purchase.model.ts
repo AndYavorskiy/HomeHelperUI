@@ -1,5 +1,5 @@
 export interface BasketCompletePurchaseModel {
-    Id: string;
-    Amount: string;
-    ExpirationDate?: Date | string;
+    id: string;
+    amount: string;
+    expirationDate?: Date | string;
 }

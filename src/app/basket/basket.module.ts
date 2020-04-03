@@ -1,30 +1,36 @@
+import { ReactiveFormsModule } from "@angular/forms";
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
-
-import { HomeRoutingModule } from "./home-routing.module";
-import { HomeComponent } from "./home.component";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular/listview-directives";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
-import { ReactiveFormsModule } from "@angular/forms";
+
+import { CompletePurchase, BasketComponent, BasketCreateComponent } from "./components";
+import { BasketRoutingModule } from "./basket-routing.module";
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
-        HomeRoutingModule,
+        BasketRoutingModule,
         NativeScriptUISideDrawerModule,
         NativeScriptHttpClientModule,
         NativeScriptUIListViewModule,
         NativeScriptFormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+    ],
+    entryComponents: [
+        CompletePurchase
     ],
     declarations: [
-        HomeComponent
+        BasketComponent,
+        CompletePurchase,
+        BasketCreateComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class HomeModule {
+export class BasketModule {
 }

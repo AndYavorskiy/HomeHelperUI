@@ -7,7 +7,7 @@ import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 
 import { FoodRoutingModule } from "./food-routing.module";
-import { FoodDetailsComponent, FoodCreateComponent, FoodComponent } from "./components";
+import { FoodDetailsComponent, FoodCreateComponent, FoodComponent, BuyFoodComponent } from "./components";
 
 @NgModule({
     imports: [
@@ -18,10 +18,14 @@ import { FoodDetailsComponent, FoodCreateComponent, FoodComponent } from "./comp
         NativeScriptFormsModule,
         ReactiveFormsModule
     ],
+    entryComponents: [
+        BuyFoodComponent
+    ],
     declarations: [
         FoodComponent,
         FoodDetailsComponent,
-        FoodCreateComponent
+        FoodCreateComponent,
+        BuyFoodComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -3,25 +3,28 @@ import * as moment from 'moment';
 
 import { Component, OnInit } from "@angular/core";
 
-import { FoodService } from "../../services";
-import { FoodModel } from "../../models";
 import { RouterExtensions } from "nativescript-angular/router";
 import { ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { BasketService } from "~/app/shared/services";
+import { BasketItemModel, BasketItemType } from "~/app/shared/models";
 
 @Component({
-    selector: "food-create",
-    templateUrl: "./food-create.component.html",
-    styleUrls: ["./food-create.component.scss"]
+    selector: "basket-create",
+    templateUrl: "./basket-create.component.html",
+    styleUrls: ["./basket-create.component.scss"]
 })
-export class FoodCreateComponent implements OnInit {
+export class BasketCreateComponent implements OnInit {
 
-    data: FoodModel;
+    data: BasketItemModel;
     isLoading = true;
 
     form: FormGroup;
+    selectedType = BasketItemType.Food;
 
-    constructor(private foodService: FoodService,
+    types = BasketItemType;
+
+    constructor(private basketService: BasketService,
         private routerExtensions: RouterExtensions,
         private fb: FormBuilder,
         private activatedRoute: ActivatedRoute) {
@@ -30,10 +33,9 @@ export class FoodCreateComponent implements OnInit {
     ngOnInit() {
         this.form = this.fb.group({
             name: ['', Validators.required],
-            amount: [''],
-            hasExpiration: [false],
-            expiration: [new Date()],
-            description: ['']
+            amount: ['', Validators.required],
+            description: [''],
+            hint: ['']
         });
 
         this.activatedRoute.paramMap.subscribe(params => {
@@ -42,19 +44,16 @@ export class FoodCreateComponent implements OnInit {
             if (id) {
                 this.isLoading = true;
 
-                this.foodService.get(id)
+                this.basketService.get(id)
                     .subscribe(data => {
                         this.data = data;
 
                         this.form.controls.name.setValue(data.name);
                         this.form.controls.amount.setValue(data.amount);
-
-                        if (data.expirationDate) {
-                            this.form.controls.hasExpiration.setValue(true);
-                            this.form.controls.expiration.setValue(data.expirationDate);
-                        }
-
                         this.form.controls.description.setValue(data.description);
+                        this.form.controls.hint.setValue(data.hint);
+
+                        this.selectedType = data.itemType;
 
                         this.isLoading = false;
                     });
@@ -70,20 +69,19 @@ export class FoodCreateComponent implements OnInit {
         if (this.form.valid) {
             const formData = this.form.getRawValue();
 
-            const task = Object.assign({}, this.data || new FoodModel());
+            const model = Object.assign({}, this.data || new BasketItemModel());
 
-            task.name = formData.name;
-            task.amount = formData.amount;
-            task.expirationDate = !!formData.hasExpiration
-                ? moment(formData.expirationDate).format('YYYY-MM-DD[T]HH:mm:ss.SSSZ')
-                : null;
-            task.description = formData.description;
+            model.name = formData.name;
+            model.amount = formData.amount;
+            model.description = formData.description;
+            model.hint = formData.hint;
+            model.itemType = this.selectedType;
 
             if (!this.data) {
-                this.foodService.create(task)
+                this.basketService.create(model)
                     .subscribe(value => this.goBack());
             } else {
-                this.foodService.update(task)
+                this.basketService.update(model)
                     .subscribe(value => this.goBack());
             }
         }

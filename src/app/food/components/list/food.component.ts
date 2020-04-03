@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 
 import * as app from "tns-core-modules/application";
 import { ObservableArray } from "tns-core-modules/data/observable-array/observable-array";
@@ -14,6 +14,8 @@ import { FoodService } from "../../services";
 import { FoodModel } from "../../models";
 import { BasketService } from "~/app/shared/services";
 import { BasketItemType, BasketItemModel } from "~/app/shared/models";
+import { ModalDialogService } from "nativescript-angular/directives/dialogs";
+import { BuyFoodComponent } from "../buy-food/buy-food.component";
 
 @Component({
     selector: "food",
@@ -28,8 +30,8 @@ export class FoodComponent implements OnInit {
     @ViewChild("myListView", { read: RadListViewComponent, static: false }) myListViewComponent: RadListViewComponent;
 
     constructor(private foodService: FoodService,
-        private page: Page,
-        private basketService: BasketService,
+        private modalDialogService: ModalDialogService,
+        private viewRef: ViewContainerRef,
         private routerExtensions: RouterExtensions) {
     }
 
@@ -185,10 +187,13 @@ export class FoodComponent implements OnInit {
     buyItem(index: number) {
         const item = this.dataItems.getItem(index);
 
-        this.basketService.create({ name: item.name, itemType: BasketItemType.Food } as BasketItemModel)
-            .subscribe(()=>{
-                console.log("basketService.create");
-                
+        this.modalDialogService.showModal(BuyFoodComponent,
+            {
+                viewContainerRef: this.viewRef,
+                context: item,
+                animated: true
+            }).then((isCompleted: boolean) => {
+                console.log(isCompleted ? 'Completed' : 'Not completed');
             });
     }
 }

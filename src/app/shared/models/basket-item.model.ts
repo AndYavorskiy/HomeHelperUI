@@ -1,9 +1,10 @@
 import { BasketItemType } from "./basket-item.enum";
 
-export interface BasketItemModel {
+export class BasketItemModel {
     id: string;
     name: string;
     amount: string;
+    hint: string;
     description: string;
     itemType: BasketItemType;
     dateCreated: Date | string;

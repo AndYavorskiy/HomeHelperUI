@@ -1,0 +1,44 @@
+<ActionBar>
+    <NavigationButton ios:visibility="collapsed" icon="res://back" class="fas" (tap)="goBack()"></NavigationButton>
+
+    <ActionItem text="Go Back" android:visibility="collapsed" (tap)="goBack()" ios.position="left"></ActionItem>
+
+    <Label text="Add item to basket"></Label>
+
+    <ActionItem icon="res://tick_bold" ios.position="right" [isEnabled]="form && form.valid" (tap)="submit()">
+    </ActionItem>
+</ActionBar>
+
+<ScrollView>
+    <StackLayout class="form-content">
+        <form [formGroup]="form">
+            <Label class="input-label" text="Name"></Label>
+            <TextField formControlName="name" returnKeyType="next"></TextField>
+
+            <Label class="input-label" text="Amount"></Label>
+            <TextField formControlName="amount" returnKeyType="next"></TextField>
+
+            <Label class="input-label" text="Hint"></Label>
+            <TextView formControlName="hint" [autocorrect]="true"></TextView>
+
+            <GridLayout columns="*,*" rows="auto" margin="0 0 20">
+                <StackLayout col="0" class="item-type" [ngClass]="{'selected': selectedType==types.Food}" width="100" height="100" verticalAlignment="center" (tap)="selectedType = types.Food">
+                    <GridLayout rows="*, auto" verticalAlignment="center">
+                        <Label class="icon fas" text="&#xf5d1;" horizontalAlignment="center"></Label>
+                        <Label row="1" class="signature" text="Food" horizontalAlignment="center"></Label>
+                    </GridLayout>
+                </StackLayout>
+
+                <StackLayout col="1"  class="item-type" [ngClass]="{'selected': selectedType==types.Medicaments}"  width="100" height="100" verticalAlignment="center" (tap)="selectedType = types.Medicaments">
+                    <GridLayout rows="*, auto" verticalAlignment="center">
+                        <Label class="icon fas" text="&#xf484;" horizontalAlignment="center"></Label>
+                        <Label row="1" class="signature" text="Food" horizontalAlignment="center"></Label>
+                    </GridLayout>
+                </StackLayout>
+            </GridLayout>
+
+            <Label class="input-label" text="Description"></Label>
+            <TextView formControlName="description" [autocorrect]="true"></TextView>
+        </form>
+    </StackLayout>
+</ScrollView>

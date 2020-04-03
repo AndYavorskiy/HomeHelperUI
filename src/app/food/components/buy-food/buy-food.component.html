@@ -1,0 +1,16 @@
+<ScrollView margin="10">
+    <StackLayout class="form-content">
+        <form [formGroup]="form">
+            <Label class="name" [text]="data.name"></Label>
+
+            <Label class="input-label" text="Amount"></Label>
+            <TextField formControlName="amount" returnKeyType="next"></TextField>
+
+            <Label class="input-label" text="Hint"></Label>
+            <TextView formControlName="hint" [autocorrect]="true"></TextView>
+        </form>
+
+        <Button text="Complete" [isEnabled]="form && form.valid" (tap)="buy()" class="btn btn-primary m-t-20"
+            margin="5"></Button>
+    </StackLayout>
+</ScrollView>
