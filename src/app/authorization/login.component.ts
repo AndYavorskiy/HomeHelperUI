@@ -12,7 +12,7 @@ import * as app from "tns-core-modules/application";
 @Component({
     selector: "login",
     templateUrl: "./login.component.html",
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements AfterViewInit {
 

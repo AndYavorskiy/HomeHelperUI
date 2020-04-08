@@ -1,6 +1,16 @@
 @import "~@nativescript/theme/core";
 @import "~@nativescript/theme/blue";
-@import "styles/custom-styles.scss";
+
+/* Colors */
+$accent: #369;
+
+/* This color was named $ab-background in Theme v1 */
+$complementary: #13aa52;
+$complementary-dark: #0F7244;
+$background: #f5f5f5;
+
+/* The variables are loaded before the Core styles */
+@import '~@nativescript/theme/index';
 
 // Font icon class
 .fab {
@@ -18,9 +28,9 @@
     font-weight: 400;
 }
 
+
 // Common page class
 .page__content {
-    background-color: #f5f5f5;
 
     &-icon,
     &-placeholder {

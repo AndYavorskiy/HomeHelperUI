@@ -1,9 +1,9 @@
 <RadSideDrawer [drawerTransition]="sideDrawerTransition" tkExampleTitle tkToggleNavButton>
     <GridLayout tkDrawerContent rows="auto, *" class="nt-drawer__content">
         <StackLayout row="0" class="nt-drawer__header" *ngIf="user">
-            <GridLayout columns="*, *" class="nt-drawer__list-item">
-                <Image col="0" class="nt-drawer__header-image fas t-36" src="font://&#xf2bd;"></Image>
-                <Label col="1" text="&#xf186;" (tap)="toggleThemeMode()" class="nt-icon fas"></Label>
+            <GridLayout columns="*, *, *" class="nt-drawer__list-item">
+                <Image col="1" class="nt-drawer__header-image fas t-36" src="font://&#xf2bd;"></Image>
+                <Label col="2" text="&#xf186;" (tap)="toggleThemeMode()" class="nt-icon fas"></Label>
             </GridLayout>
 
             <Label class="nt-drawer__header-brand" [text]="user.firstName + ' ' + user.lastName"></Label>
@@ -28,12 +28,6 @@
                     [class.-selected]="isComponentSelected('/food')" (tap)="onNavItemTap('/food')">
                     <Label col="0" text="&#xf5d1;" class="nt-icon fas"></Label>
                     <Label col="1" text="Food" class="p-r-10"></Label>
-                </GridLayout>
-
-                <GridLayout columns="auto, *" class="nt-drawer__list-item"
-                    [class.-selected]="isComponentSelected('/featured')" (tap)="onNavItemTap('/featured')">
-                    <Label col="0" text="&#xf005;" class="nt-icon fas"></Label>
-                    <Label col="1" text="Featured" class="p-r-10"></Label>
                 </GridLayout>
 
                 <StackLayout class="hr"></StackLayout>

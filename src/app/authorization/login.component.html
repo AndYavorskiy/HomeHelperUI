@@ -30,7 +30,7 @@
         </PreviousNextView>
 
         <Button [text]="isLoggingIn ? 'Log In' : 'Sign Up'" [isEnabled]="!processing" (tap)="submit()"
-            class="btn btn-primary m-t-20" margin="30 5 15 5"></Button>
+            class="-primary -rounded-sm m-t-20 btn" margin="30 5 15 5"></Button>
         <Label *ngIf="isLoggingIn" text="Forgot your password?" class="login-label" (tap)="forgotPassword()"></Label>
     </StackLayout>
 
